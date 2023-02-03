@@ -2,7 +2,7 @@ ARG ALPINE_VERSION=3.16
 ARG XCPU_VERSION=v0.6.0
 ARG BUILDPLATFORM=linux/amd64
 
-FROM --platform=${BUILDPLATFORM} qmcgaw/xcputranslate:v0.6.0 AS xcputranslate
+FROM --platform=${BUILDPLATFORM} kbuley/xcputranslate:v0.6.0 AS xcputranslate
 
 FROM --platform=${BUILDPLATFORM} alpine:${ALPINE_VERSION} AS build
 RUN apk add --no-cache g++ make binutils cmake git && \
@@ -27,13 +27,13 @@ ARG VERSION
 ARG CREATED
 ARG REVISION
 LABEL \
-    org.opencontainers.image.authors="quentin.mcgaw@gmail.com" \
+    org.opencontainers.image.authors="kevin@buley.org" \
     org.opencontainers.image.version=${VERSION} \
     org.opencontainers.image.created=${CREATED} \
     org.opencontainers.image.revision=${REVISION} \
-    org.opencontainers.image.url="https://github.com/qdm12/binpot/blob/main/dockerfiles/gotests" \
-    org.opencontainers.image.documentation="https://github.com/qdm12/binpot" \
-    org.opencontainers.image.source="https://github.com/qdm12/binpot.git" \
+    org.opencontainers.image.url="https://github.com/kbuley/binpot/blob/main/dockerfiles/gotests" \
+    org.opencontainers.image.documentation="https://github.com/kbuley/binpot" \
+    org.opencontainers.image.source="https://github.com/kbuley/binpot.git" \
     org.opencontainers.image.title="Gitstatusd binary" \
     org.opencontainers.image.description="Gitstatusd binary"
 COPY --from=build /tmp/bin /bin

@@ -13,7 +13,7 @@ echo "Marking ${TARGETPLATFORM} as unavailable"
 echo "Clearing the current directory..."
 rm -rf *
 echo "Building unavailable program..."
-wget -q https://raw.githubusercontent.com/qdm12/binpot/main/unavailable/main.go
+wget -q https://raw.githubusercontent.com/kbuley/binpot/main/unavailable/main.go
 GOARCH="$(xcputranslate translate -field arch -targetplatform ${TARGETPLATFORM})" \
 GOARM="$(xcputranslate translate -field arm -targetplatform ${TARGETPLATFORM})" \
 go build -trimpath \

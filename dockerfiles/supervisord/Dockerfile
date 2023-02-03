@@ -3,7 +3,7 @@ ARG GO_VERSION=1.19
 ARG XCPU_VERSION=v0.6.0
 ARG BUILDPLATFORM=linux/amd64
 
-FROM --platform=${BUILDPLATFORM} qmcgaw/xcputranslate:${XCPU_VERSION} AS xcputranslate
+FROM --platform=${BUILDPLATFORM} kbuley/xcputranslate:${XCPU_VERSION} AS xcputranslate
 
 FROM --platform=${BUILDPLATFORM} golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS build
 ENV CGO_ENABLED=0
@@ -28,13 +28,13 @@ ARG VERSION
 ARG CREATED
 ARG REVISION
 LABEL \
-    org.opencontainers.image.authors="quentin.mcgaw@gmail.com" \
+    org.opencontainers.image.authors="kevin@buley.org" \
     org.opencontainers.image.version=${VERSION} \
     org.opencontainers.image.created=${CREATED} \
     org.opencontainers.image.revision=${REVISION} \
-    org.opencontainers.image.url="https://github.com/qdm12/binpot/blob/main/dockerfiles/supervisord" \
-    org.opencontainers.image.documentation="https://github.com/qdm12/binpot" \
-    org.opencontainers.image.source="https://github.com/qdm12/binpot.git" \
+    org.opencontainers.image.url="https://github.com/kbuley/binpot/blob/main/dockerfiles/supervisord" \
+    org.opencontainers.image.documentation="https://github.com/kbuley/binpot" \
+    org.opencontainers.image.source="https://github.com/kbuley/binpot.git" \
     org.opencontainers.image.title="Supervisord binary" \
     org.opencontainers.image.description="Supervisord binary"
 COPY --from=build /tmp/bin /bin

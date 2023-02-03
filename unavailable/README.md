@@ -13,7 +13,7 @@ It is designed to be built in a Dockerfile as an alternative to a program if thi
 To reduce the complexity of the Dockerfile if/else block in a `RUN` instruction, the [`build.sh`](build.sh) script can be pipe to `sh` with:
 
 ```sh
-wget -qO- https://raw.githubusercontent.com/qdm12/binpot/main/unavailable/build.sh | \
+wget -qO- https://raw.githubusercontent.com/kbuley/binpot/main/unavailable/build.sh | \
   sh -s -- "programName v9.9.9" "linux/riscv64"
 ```
 
@@ -50,7 +50,7 @@ RUN export GOARCH="$(xcputranslate translate -field arch -targetplatform ${TARGE
         chmod 500 /tmp/bin && \
         exit 0; \
     fi && \
-    wget -qO- https://raw.githubusercontent.com/qdm12/binpot/main/unavailable/build.sh | \
+    wget -qO- https://raw.githubusercontent.com/kbuley/binpot/main/unavailable/build.sh | \
        sh -s -- "dlv ${VERSION}" "${TARGETPLATFORM}"
 ```
 

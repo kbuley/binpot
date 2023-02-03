@@ -3,7 +3,7 @@ ARG GO_VERSION=1.19
 ARG XCPU_VERSION=v0.6.0
 ARG BUILDPLATFORM=linux/amd64
 
-FROM --platform=${BUILDPLATFORM} qmcgaw/xcputranslate:${XCPU_VERSION} AS xcputranslate
+FROM --platform=${BUILDPLATFORM} kbuley/xcputranslate:${XCPU_VERSION} AS xcputranslate
 
 FROM --platform=${BUILDPLATFORM} golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS build
 ENV CGO_ENABLED=0
@@ -24,7 +24,7 @@ RUN echo "Building for ${TARGETPLATFORM}..." && \
     chmod 500 /tmp/bin && \
     exit 0; \
     fi && \
-    wget -qO- https://raw.githubusercontent.com/qdm12/binpot/main/unavailable/build.sh | \
+    wget -qO- https://raw.githubusercontent.com/kbuley/binpot/main/unavailable/build.sh | \
     sh -s -- "dlv ${VERSION}" "${TARGETPLATFORM}"
 
 FROM scratch
@@ -33,13 +33,13 @@ ARG VERSION
 ARG CREATED
 ARG REVISION
 LABEL \
-    org.opencontainers.image.authors="quentin.mcgaw@gmail.com" \
+    org.opencontainers.image.authors="kevin@buley.org" \
     org.opencontainers.image.version=${VERSION} \
     org.opencontainers.image.created=${CREATED} \
     org.opencontainers.image.revision=${REVISION} \
-    org.opencontainers.image.url="https://github.com/qdm12/binpot/blob/main/dockerfiles/dlv" \
-    org.opencontainers.image.documentation="https://github.com/qdm12/binpot" \
-    org.opencontainers.image.source="https://github.com/qdm12/binpot.git" \
+    org.opencontainers.image.url="https://github.com/kbuley/binpot/blob/main/dockerfiles/dlv" \
+    org.opencontainers.image.documentation="https://github.com/kbuley/binpot" \
+    org.opencontainers.image.source="https://github.com/kbuley/binpot.git" \
     org.opencontainers.image.title="Dlv binary" \
     org.opencontainers.image.description="Dlv binary"
 COPY --from=build /tmp/bin /bin
