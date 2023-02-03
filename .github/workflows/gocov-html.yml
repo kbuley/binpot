@@ -1,0 +1,20 @@
+name: gocov-html
+on:
+  push:
+    paths:
+      - .github/workflows/gocov-html.yml
+      - "dockerfiles/gocov-html/**"
+      - .github/workflows/reusable.yml
+  pull_request:
+    paths:
+      - .github/workflows/gocov-html.yml
+      - "dockerfiles/gocov-html/**"
+      - .github/workflows/reusable.yml
+
+jobs:
+  golangci-lint:
+    uses: ./.github/workflows/reusable.yml
+    secrets: inherit
+    with:
+      name: gocov-html
+      version: v1.2.0
