@@ -12,7 +12,7 @@ on:
       - .github/workflows/reusable.yml
 
 jobs:
-  golangci-lint:
+  gocov:
     uses: ./.github/workflows/reusable.yml
     secrets: inherit
     with:
