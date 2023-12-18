@@ -1,0 +1,20 @@
+name: lazygit
+on:
+  push:
+    paths:
+      - .github/workflows/lazygit.yml
+      - "dockerfiles/lazygit/**"
+      - .github/workflows/reusable.yml
+  pull_request:
+    paths:
+      - .github/workflows/lazygit.yml
+      - "dockerfiles/lazygit/**"
+      - .github/workflows/reusable.yml
+
+jobs:
+  kubens:
+    uses: ./.github/workflows/reusable.yml
+    secrets: inherit
+    with:
+      name: lazygit
+      version: v0.40.2
