@@ -6,7 +6,7 @@ ARG BUILDPLATFORM=linux/amd64
 FROM --platform=${BUILDPLATFORM} kbuley/xcputranslate:${XCPU_VERSION} AS xcputranslate
 
 FROM --platform=${BUILDPLATFORM} golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS build
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 ENV CGO_ENABLED=0
 
@@ -19,6 +19,7 @@ WORKDIR /tmp/build
 ARG VERSION=v1.6.0
 RUN git clone --depth 1 --branch ${VERSION} https://github.com/golang/mock.git . && go mod download
 ARG TARGETPLATFORM
+# hadolint ignore=SC3057
 RUN echo "Building for ${TARGETPLATFORM}..." && \
   GOARCH="$(xcputranslate translate -field arch -targetplatform ${TARGETPLATFORM})" \
   GOARM="$(xcputranslate translate -field arm -targetplatform ${TARGETPLATFORM})" \
