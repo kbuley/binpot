@@ -25,7 +25,7 @@ RUN echo "Building for ${TARGETPLATFORM}..." && \
   -X 'main.commit=$(git rev-parse --short HEAD)' \
   -X 'main.date=$(date)' \
   -X 'main.buildSource=github' \
-  " -o /tmp/bin ./cmd/lazygit && \
+  " -o /tmp/bin . && \
   chmod 500 /tmp/bin
 
 FROM scratch
