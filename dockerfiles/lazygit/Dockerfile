@@ -14,13 +14,18 @@ RUN apk add --no-cache git && \
 COPY --from=xcputranslate /xcputranslate /usr/local/bin/xcputranslate
 WORKDIR /tmp/build
 
-ARG VERSION=v0.7.3
-RUN git clone --depth 1 --branch ${VERSION} https://github.com/ochinchina/supervisord.git . && go mod download
+ARG VERSION=v0.40.2
+RUN git clone --depth 1 --branch ${VERSION} https://github.com/jesseduffield/lazygit.git . && go mod download
 ARG TARGETPLATFORM
 RUN echo "Building for ${TARGETPLATFORM}..." && \
   GOARCH="$(xcputranslate translate -field arch -targetplatform ${TARGETPLATFORM})" \
   GOARM="$(xcputranslate translate -field arm -targetplatform ${TARGETPLATFORM})" \
-  go build -trimpath -o /tmp/bin && \
+  go build -trimpath -ldflags="-s -w \
+  -X 'main.version=${VERSION}' \
+  -X 'main.commit=$(git rev-parse --short HEAD)' \
+  -X 'main.date=$(date)' \
+  -X 'main.buildSource=github' \
+  " -o /tmp/bin . && \
   chmod 500 /tmp/bin
 
 FROM scratch
@@ -33,9 +38,9 @@ LABEL \
   org.opencontainers.image.version=${VERSION} \
   org.opencontainers.image.created=${CREATED} \
   org.opencontainers.image.revision=${REVISION} \
-  org.opencontainers.image.url="https://github.com/kbuley/binpot/blob/main/dockerfiles/supervisord" \
+  org.opencontainers.image.url="https://github.com/kbuley/binpot/blob/main/dockerfiles/lazygit" \
   org.opencontainers.image.documentation="https://github.com/kbuley/binpot" \
   org.opencontainers.image.source="https://github.com/kbuley/binpot.git" \
-  org.opencontainers.image.title="Supervisord binary" \
-  org.opencontainers.image.description="Supervisord binary"
+  org.opencontainers.image.title="lazygit binary" \
+  org.opencontainers.image.description="lazygit binary"
 COPY --from=build /tmp/bin /bin
