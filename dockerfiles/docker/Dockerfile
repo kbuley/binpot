@@ -1,35 +1,59 @@
+# syntax=docker/dockerfile:1
 ARG ALPINE_VERSION=3.19
 ARG GO_VERSION=1.21.5
 ARG XCPU_VERSION=v0.8.2
 ARG BUILDPLATFORM=linux/amd64
 
-FROM --platform=${BUILDPLATFORM} kbuley/xcputranslate:${XCPU_VERSION} AS xcputranslate
+ARG BUILDX_VERSION=0.11.2
+FROM docker/buildx-bin:${BUILDX_VERSION} AS buildx
 
-FROM --platform=${BUILDPLATFORM} golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS build
+FROM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS golang
+ENV GOTOOLCHAIN=local
 ENV CGO_ENABLED=0
 
-# hadolint ignore=DL3018
-RUN apk add --no-cache git && \
-  git config --global advice.detachedHead false
-COPY --from=xcputranslate /xcputranslate /usr/local/bin/xcputranslate
-WORKDIR /tmp/build
+FROM golang AS gofumpt
+ARG GOFUMPT_VERSION=v0.4.0
+RUN --mount=type=cache,target=/root/.cache/go-build \
+  --mount=type=cache,target=/go/pkg/mod \
+  --mount=type=tmpfs,target=/go/src/ \
+  GO111MODULE=on go install "mvdan.cc/gofumpt@${GOFUMPT_VERSION}" \
+  && gofumpt --version
 
-ARG VERSION=v24.0.7
+FROM golang AS gotestsum
+ARG GOTESTSUM_VERSION=v1.10.0
+RUN --mount=type=cache,target=/root/.cache/go-build \
+  --mount=type=cache,target=/go/pkg/mod \
+  --mount=type=tmpfs,target=/go/src/ \
+  GO111MODULE=on go install gotest.tools/gotestsum@${GOTESTSUM_VERSION}
+
+FROM golang AS goversioninfo
+ARG GOVERSIONINFO_VERSION=v1.3.0
+RUN --mount=type=cache,target=/root/.cache/go-build \
+  --mount=type=cache,target=/go/pkg/mod \
+  --mount=type=tmpfs,target=/go/src/ \
+  GO111MODULE=on go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@${GOVERSIONINFO_VERSION}
+
+FROM golang AS dev
+ARG DOCKER_VERSION=v24.0.7
+# hadolint ignore=DL3018
+RUN  apk add --no-cache bash build-base ca-certificates coreutils curl git jq
+
+CMD ["bash", "-c"]
+ENV DISABLE_WARN_OUTSIDE_CONTAINER=1
+ENV PATH=$PATH:/go/src/github.com/docker/cli/build
+
+COPY --link --from=buildx          /buildx /usr/libexec/docker/cli-plugins/docker-buildx
+COPY --link --from=gofumpt         /go/bin/* /go/bin/
+COPY --link --from=gotestsum       /go/bin/* /go/bin/
+COPY --link --from=goversioninfo   /go/bin/* /go/bin/
+
 WORKDIR /go/src/github.com/docker/cli
-RUN git clone --depth 1 --branch ${VERSION} https://github.com/docker/cli.git .
-ARG TARGETPLATFORM
-RUN echo "Building for ${TARGETPLATFORM}..." && \
-  GITCOMMIT="$(git rev-parse --short HEAD)" && \
-  BUILDTIME="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" && \
-  GOARCH="$(xcputranslate translate -field arch -targetplatform ${TARGETPLATFORM})" \
-  GOARM="$(xcputranslate translate -field arm -targetplatform ${TARGETPLATFORM})" \
-  GO111MODULE=off \
-  go build -trimpath -ldflags="-s -w \
-  -X 'github.com/docker/cli/cli/version.GitCommit=${GITCOMMIT}' \
-  -X 'github.com/docker/cli/cli/version.BuildTime=${BUILDTIME}' \
-  -X 'github.com/docker/cli/cli/version.Version=${VERSION}' \
-  " -o /tmp/bin cmd/docker/docker.go && \
-  chmod 500 /tmp/bin
+ENV GO111MODULE=auto
+
+RUN git clone --depth 1 --branch ${DOCKER_VERSION} https://github.com/docker/cli . && \
+  make binary && \
+  cp build/docker /tmp/bin && \
+  chmod +x /tmp/bin
 
 FROM scratch
 ENTRYPOINT [ "/bin" ]
@@ -46,4 +70,4 @@ LABEL \
   org.opencontainers.image.source="https://github.com/kbuley/binpot.git" \
   org.opencontainers.image.title="Docker binary" \
   org.opencontainers.image.description="Docker binary"
-COPY --from=build /tmp/bin /bin
+COPY --from=dev /tmp/bin /bin
