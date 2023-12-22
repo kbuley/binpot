@@ -1,40 +1,40 @@
-#Binpot
+# Binpot
 
-Thestaticallycompiled,crossarchitecture,Dockerbased,binariespot.
+The statically compiled, cross architecture, Docker based, binaries pot.
 
-<imgheight="150"src="https://raw.githubusercontent.com/kbuley/binpot/main/binpot.svg">
+<img height="150" src="https://raw.githubusercontent.com/kbuley/binpot/main/binpot.svg">
 
-[Blogpost](https://qqq.ninja/blog/post/binpot/)
+[Blog post](https://qqq.ninja/blog/post/binpot/)
 
 [![MIT](https://img.shields.io/github/license/kbuley/binpot)](https://github.com/kbuley/binpot/main/LICENSE)
 
-##Usage
+## Usage
 
-TheusageisfocusedtobuildotherDockerimages.
+The usage is focused to build other Docker images.
 
-Forexample:
+For example:
 
 ```Dockerfile
-FROMalpine:3.14
-COPY--from=kbuley/binpot:helm/bin/usr/local/bin/helm
+FROM alpine:3.14
+COPY --from=kbuley/binpot:helm /bin /usr/local/bin/helm
 ```
 
-[🔍Searchforallimagetags💡](https://hub.docker.com/r/kbuley/binpot/tags)
+[🔍 Search for all image tags 💡](https://hub.docker.com/r/kbuley/binpot/tags)
 
--TheDockerimagetagsfor`kbuley/binpot`followthefollowingformatting:
--`:name`forthelateststableversionoftheprogram`name`
--`:name-v0.0.0`forthesemverversionoftheprogram`name`
--EachDockerimageisbasedon[scratch](https://hub.docker.com/_/scratch)andonlycontainthebinaryprogramatthepath`/bin`.
--EachDockerimageandbinaryprogramisbuiltforeachofthepossibleCPUarchitecturesupportedbyDocker,unlessindicatedotherwise.
--Eachbinaryhaspermissions`500`(readandexecutefortheuserowner)
--Youcanchangetheownershipinthe`COPY`commandusing`--chown=1000`forexample,withoutduplicatingthebinaryinyourDockerimagelayers.
--EachDockerimagehasanentrypoint`["/bin"]`soyoucanrunitaswell
+- The Docker image tags for `kbuley/binpot` follow the following formatting:
+  - `:name` for the latest stable version of the program `name`
+  - `:name-v0.0.0` for the semver version of the program `name`
+- Each Docker image is based on [scratch](https://hub.docker.com/_/scratch) and only contain the binary program at the path `/bin`.
+- Each Docker image and binary program is built for each of the possible CPU architecture supported by Docker, unless indicated otherwise.
+- Each binary has permissions `500` (read and execute for the user owner)
+- You can change the ownership in the `COPY` command using `--chown=1000` for example, without duplicating the binary in your Docker image layers.
+- Each Docker image has an entrypoint `[ "/bin" ]` so you can run it as well
 
-**Needhelp?**▶️[Createadiscussion](https://github.com/kbuley/binpot/discussions)
+**Need help?** ▶️ [Create a discussion](https://github.com/kbuley/binpot/discussions)
 
-[Thinkingofcopyingthebinaryforyourhost?](#Copy-the-binary-on-your-host)
+[Thinking of copying the binary for your host?](#Copy-the-binary-on-your-host)
 
-##Programsavailable
+## Programs available
 
 |Program|Lastversion|Imagetags|Architectures|
 |------------------------------------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|-------------------------------|
@@ -66,34 +66,34 @@ COPY--from=kbuley/binpot:helm/bin/usr/local/bin/helm
 |[`chezmoi`](https://github.com/twpayne/chezmo)|[`v2.42.3`](https://github.com/twpayne/chezmoi/releases/tag/v2.42.3)|[**DockerHub**](https://hub.docker.com/r/kbuley/binpot/tags?name=lazygit)|all|
 ℹ️`all`architecturesmeans:linux/amd64,linux/arm64
 
-**Wantmore!?**▶️[Createanissue!](https://github.com/kbuley/binpot/issues)
+**Want more!?** ▶️ [Create an issue!](https://github.com/kbuley/binpot/issues)
 
-##Howitworks
+## How it works
 
-1.Foreachprogram,aDockerfiledescribeshowtobuildit.Thefinalbinaryisplacedonafinal[scratch](https://hub.docker.com/_/scratch)basedDockerimage._Example:_`helm`has[`./dockerfiles/helm/Dockerfile`](dockerfiles/helm/Dockerfile)
-2.Foreachprogram,aGithubActionworkflowistriggeredwhenitsDockerfileortheworkflowitselfischanged.Thisworkflowtakescareof:
-1.CrossbuildtheprogramforallCPUarchitectures
-2.PushingtheimagescontainingtheprogramtoDockerHub
+1. For each program, a Dockerfile describes how to build it. The final binary is placed on a final [scratch](https://hub.docker.com/_/scratch) based Docker image. _Example:_ `helm` has [`./dockerfiles/helm/Dockerfile`](dockerfiles/helm/Dockerfile)
+2. For each program, a Github Action workflow is triggered when its Dockerfile or the workflow itself is changed. This workflow takes care of:
+   1. Cross build the program for all CPU architectures
+   2. Pushing the images containing the program to Docker Hub
 
-##Copythebinaryonyourhost
+## Copy the binary on your host
 
-Ifyouwanttousethebinarydirectlyonyourhost,youcandoitwithDocker.
-Thishastheadvantagethatitwillautomaticallygettherightbinaryforyourhostplatform.
+If you want to use the binary directly on your host, you can do it with Docker.
+This has the advantage that it will automatically get the right binary for your host platform.
 
-Inthefollowingwewanttoinstall`helm`onourhost.
+In the following we want to install `helm` on our host.
 
-Forexample:
+For example:
 
 ```sh
-exportPROGRAM="helm"&&\
-dockerpull"kbuley/binpot:$PROGRAM"&&\
-containerid="$(dockercreatekbuley/binpot:$PROGRAM)"&&\
-dockercp"$containerid:/bin""/usr/local/bin/$PROGRAM"&&\
-dockerrm"$containerid"
+export PROGRAM="helm" && \
+  docker pull "kbuley/binpot:$PROGRAM" && \
+  containerid="$(docker create kbuley/binpot:$PROGRAM)" && \
+  docker cp "$containerid:/bin" "/usr/local/bin/$PROGRAM" && \
+  docker rm "$containerid"
 ```
 
-TestHelmworkswith`helm`
+Test Helm works with `helm`
 
-##TODOs
+## TODOs
 
--Changeversionofgo-outlineonceareleasetagismade:[Githubissue](https://github.com/ramya-rao-a/go-outline/issues/15)
+- Change version of go-outline once a release tag is made: [Github issue](https://github.com/ramya-rao-a/go-outline/issues/15)
