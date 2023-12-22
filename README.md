@@ -36,52 +36,44 @@ COPY --from=kbuley/binpot:helm /bin /usr/local/bin/helm
 
 ## Programs available
 
-| Program | Last version | Image tags | Architectures |
-| --- | --- | --- | --- |
-| [`bit`](https://github.com/chriswalz/bit) | [`v1.1.2`](https://github.com/chriswalz/bit/releases/tag/v1.1.2) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=bit) | all |
-| [`buildx`](https://github.com/docker/buildx) | [`v0.9.1`](https://github.com/docker/buildx/releases/tag/v0.9.1) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=buildx) | all |
-| [`compose`](https://github.com/docker/compose) | [`v2.14.2`](https://github.com/docker/compose/releases/tag/v2.14.2) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=compose) | all |
-| [`dlv`](https://github.com/go-delve/delve) | [`v1.20.1`](https://github.com/go-delve/delve/releases/tag/v1.20.1) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=dlv) | `linux/amd64` and `linux/arm64` |
-| [`docker`](https://github.com/docker/cli) | [`v20.10.22`](https://github.com/docker/cli/releases/tag/v20.10.22) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=docker) | all |
-| [`gh`](https://github.com/cli/cli) | [`v2.21.1`](https://github.com/cli/cli/releases/tag/v2.21.1) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gh) | all |
-| [`golangci-lint`](https://github.com/golangci/golangci-lint) | [`v1.50.1`](https://github.com/golangci/golangci-lint/releases/tag/v1.50.1) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=golangci-lint) | all |
-| [`gomock`](https://github.com/golang/mock) | [`v1.6.0`](https://github.com/golang/mock/releases/tag/v1.6.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gomock) | all |
-| [`gomodifytags`](https://github.com/fatih/gomodifytags) | [`v1.16.0`](https://github.com/fatih/gomodifytags/releases/tag/v1.16.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gomodifytags) | all |
-| [`go-outline`](https://github.com/ramya-rao-a/go-outline) | [`9736a4b`](https://github.com/ramya-rao-a/go-outline/commit/9736a4bde949f321d201e5eaa5ae2bcde011bf00) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=go-outline) | all |
-| [`gopkgs`](https://github.com/uudashr/gopkgs) | [`v2.1.2`](https://github.com/uudashr/gopkgs/releases/tag/v2.1.2) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gopkgs) | all |
-| [`goplay`](https://github.com/haya14busa/goplay) | [`v1.0.0`](https://github.com/haya14busa/goplay/releases/tag/v1.0.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=goplay) | all |
-| [`gopls`](https://github.com/golang/tools/tree/master/gopls) | [`v0.11.0`](https://github.com/golang/tools/releases/tag/gopls/v0.11.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gopls) | all |
-| [`gotests`](https://github.com/cweill/gotests) | [`v1.6.0`](https://github.com/cweill/gotests/releases/tag/v1.6.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gotests) | all |
-| [`helm`](https://github.com/helm/helm) | [`v3.10.3`](https://github.com/helm/helm/releases/tag/v3.10.3) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=helm) | all |
-| [`impl`](https://github.com/josharian/impl) | [`v1.1.0`](https://github.com/josharian/impl/releases/tag/v1.1.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=impl) | all |
-| [`kubectl`](https://github.com/kubernetes/kubernetes) | [`v1.26.0`](https://github.com/kubernetes/kubernetes/releases/tag/v1.26.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=kubectl) | all |
-| [`kubectx`](https://github.com/ahmetb/kubectx) | [`v0.9.4`](https://github.com/ahmetb/kubectx/releases/tag/v0.9.4) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=kubectx) | all |
-| [`kubens`](https://github.com/ahmetb/kubectx) | [`v0.9.4`](https://github.com/ahmetb/kubectx/releases/tag/v0.9.4) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=kubens) | all |
-| [`logo-ls`](https://github.com/Yash-Handa/logo-ls) | [`v1.3.7`](https://github.com/Yash-Handa/logo-ls/releases/tag/v1.3.7) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=logo-ls) | all |
-| [`logo-ls`](https://github.com/Yash-Handa/logo-ls) | [`v1.3.7`](https://github.com/Yash-Handa/logo-ls/releases/tag/v1.3.7) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=logo-ls-v1.3.7) | all |
-| [`mockery`](https://github.com/vektra/mockery) | [`v2.16.0`](https://github.com/vektra/mockery/releases/tag/v2.16.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=mockery) | all |
-| [`mockgen`](https://github.com/golang/mock) | [`v1.6.0`](https://github.com/golang/mock/releases/tag/v1.6.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=mockgen) | all |
-| [`stern`](https://github.com/stern/stern) | [`v1.22.0`](https://github.com/stern/stern/releases/tag/v1.22.0) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=stern) | all |
-| [`supervisord`](https://github.com/ochinchina/supervisord) | [`v0.7.3`](https://github.com/ochinchina/supervisord/releases/tag/v0.7.3) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=supervisord) | all |
-
-ℹ️ `all` architectures means: linux/amd64, linux/386, linux/arm64, linux/arm/v7, linux/arm/v6, linux/ppc64le, linux/s390x, linux/riscv64
+| Program                                                      | Last version                                                                                           | Image tags                                                                        | Architectures                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- | ------------------------------- |
+| [`bit`](https://github.com/chriswalz/bit)                    | [`v1.1.2`](https://github.com/chriswalz/bit/releases/tag/v1.1.2)                                       | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=bit)            | all                             |
+| [`buildx`](https://github.com/docker/buildx)                 | [`v0.12.0`](https://github.com/docker/buildx/releases/tag/v0.12)                                       | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=buildx)         | all                             |
+| [`compose`](https://github.com/docker/compose)               | [`v2.23.3`](https://github.com/docker/compose/releases/tag/v2.23.3)                                    | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=compose)        | all                             |
+| [`dlv`](https://github.com/go-delve/delve)                   | [`v1.21.2`](https://github.com/go-delve/delve/releases/tag/v1.21.2)                                    | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=dlv)            | all                             |
+| [`docker`](https://github.com/docker/cli)                    | [`v24.0.7`](https://github.com/docker/cli/releases/tag/v24.0.7)                                        | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=docker)         | all                             |
+| [`gh`](https://github.com/cli/cli)                           | [`v2.40.1`](https://github.com/cli/cli/releases/tag/v2.40.1)                                           | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gh)             | all                             |
+| [`golangci-lint`](https://github.com/golangci/golangci-lint) | [`v1.55.2`](https://github.com/golangci/golangci-lint/releases/tag/v1.55.2)                            | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=golangci-lint)  | all                             |
+| [`gomock`](https://github.com/golang/mock)                   | [`v1.6.0`](https://github.com/golang/mock/releases/tag/v1.6.0)                                         | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gomock)         | all                             |
+| [`gomodifytags`](https://github.com/fatih/gomodifytags)      | [`v1.16.0`](https://github.com/fatih/gomodifytags/releases/tag/v1.16.0)                                | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gomodifytags)   | all                             |
+| [`go-outline`](https://github.com/ramya-rao-a/go-outline)    | [`9736a4b`](https://github.com/ramya-rao-a/go-outline/commit/9736a4bde949f321d201e5eaa5ae2bcde011bf00) | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=go-outline)     | all                             |
+| [`gopkgs`](https://github.com/uudashr/gopkgs)                | [`v2.1.2`](https://github.com/uudashr/gopkgs/releases/tag/v2.1.2)                                      | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gopkgs)         | all                             |
+| [`goplay`](https://github.com/haya14busa/goplay)             | [`v1.0.0`](https://github.com/haya14busa/goplay/releases/tag/v1.0.0)                                   | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=goplay)         | all                             |
+| [`gopls`](https://github.com/golang/tools/tree/master/gopls) | [`v0.14.2`](https://github.com/golang/tools/releases/tag/gopls/v0.14.2)                                | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gopls)          | all                             |
+| [`gotests`](https://github.com/cweill/gotests)               | [`v1.6.0`](https://github.com/cweill/gotests/releases/tag/v1.6.0)                                      | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=gotests)        | all                             |
+| [`helm`](https://github.com/helm/helm)                       | [`v3.13.3`](https://github.com/helm/helm/releases/tag/v3.13.3)                                         | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=helm)           | all                             |
+| [`impl`](https://github.com/josharian/impl)                  | [`v1.2.0`](https://github.com/josharian/impl/releases/tag/v1.2.0)                                      | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=impl)           | all                             |
+| [`kubectl`](https://github.com/kubernetes/kubernetes)        | [`v1.29.0`](https://github.com/kubernetes/kubernetes/releases/tag/v1.29.0)                             | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=kubectl)        | all                             |
+| [`kubectx`](https://github.com/ahmetb/kubectx)               | [`v0.9.5`](https://github.com/ahmetb/kubectx/releases/tag/v0.9.5)                                      | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=kubectx)        | all                             |
+| [`kubens`](https://github.com/ahmetb/kubectx)                | [`v0.9.5`](https://github.com/ahmetb/kubectx/releases/tag/v0.9.5)                                      | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=kubens)         | all                             |
+| [`logo-ls`](https://github.com/Yash-Handa/logo-ls)           | [`v1.3.7`](https://github.com/Yash-Handa/logo-ls/releases/tag/v1.3.7)                                  | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=logo-ls-v1.3.7) | all                             |
+| [`mockery`](https://github.com/vektra/mockery)               | [`v2.38.0`](https://github.com/vektra/mockery/releases/tag/v2.38.0)                                    | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=mockery)        | all                             |
+| [`mockgen`](https://github.com/golang/mock)                  | [`v1.6.0`](https://github.com/golang/mock/releases/tag/v1.6.0)                                         | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=mockgen)        | all                             |
+| [`stern`](https://github.com/stern/stern)                    | [`v1.27.0`](https://github.com/stern/stern/releases/tag/v1.27.0)                                       | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=stern)          | all                             |
+| [`supervisord`](https://github.com/ochinchina/supervisord)   | [`v0.7.3`](https://github.com/ochinchina/supervisord/releases/tag/v0.7.3)                              | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=supervisord)    | all                             |
+| [`lazygit`](https://github.com/jesseduffield/lazygit)        | [`v0.40.2`](https://github.com/jesseduffield/lazygit/releases/tag/v0.40.2)                             | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=lazygit)        | all                             |
+| [`chezmoi`](https://github.com/twpayne/chezmo)               | [`v2.42.3`](https://github.com/twpayne/chezmoi/releases/tag/v2.42.3)                                   | [**Docker Hub**](https://hub.docker.com/r/kbuley/binpot/tags?name=lazygit)        | all                             |
+ℹ️ `all` architectures means: linux/amd64, linux/arm64
 
 **Want more!?** ▶️ [Create an issue!](https://github.com/kbuley/binpot/issues)
 
 ## How it works
 
-1. For each program, a Dockerfile describes how to build it. The final binary is placed on a final [scratch](https://hub.docker.com/_/scratch) based Docker image. *Example:* `helm` has [`./dockerfiles/helm/Dockerfile`](dockerfiles/helm/Dockerfile)
+1. For each program, a Dockerfile describes how to build it. The final binary is placed on a final [scratch](https://hub.docker.com/_/scratch) based Docker image. _Example:_ `helm` has [`./dockerfiles/helm/Dockerfile`](dockerfiles/helm/Dockerfile)
 2. For each program, a Github Action workflow is triggered when its Dockerfile or the workflow itself is changed. This workflow takes care of:
-    1. Cross build the program for all CPU architectures
-        - If one architecture is not supported such as for `dlv`, build the [unavailable](unavailable) program
-    2. Pushing the images containing the program to Docker Hub
-
-## Note on `dlv`
-
-💁 Concerning `dlv`: all images are built for all architectures even if the program does not support all of them.
-A substitute Go program printing `dlv v1.7.0 is unavailable on <platform name>` and exiting with exit code `1` is used for unsupported platforms.
-This is like so so you can still cross build with all the architectures, especially if the program is an optional dependency.
-This is often the case for VSCode development containers for instance. In this case, if you try to build for `arm/v7` and need `dlv` as an optional dependency, your `COPY --from=kbuley/binpot:dlv` will not fail.
+   1. Cross build the program for all CPU architectures
+   2. Pushing the images containing the program to Docker Hub
 
 ## Copy the binary on your host
 
