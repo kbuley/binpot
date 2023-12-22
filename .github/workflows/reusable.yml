@@ -67,4 +67,6 @@ jobs:
           tags: |
             kbuley/binpot:${{ inputs.name }}
             kbuley/binpot:${{ inputs.name }}-${{ inputs.version }}
+            quay.io/kbuley/binpot:${{ inputs.name }}
+            quay.io/kbuley/binpot:${{ inputs.name }}-${{ inputs.version }}
           push: true
