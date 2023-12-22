@@ -7,14 +7,14 @@ on:
       - .github/workflows/dockerhub-description.yml
 jobs:
   docker-hub-description:
-    if: github.repository == 'kbuley/gluetun'
+    if: github.repository == 'kbuley/binpot'
     runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
         with:
