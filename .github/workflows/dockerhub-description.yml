@@ -1,20 +1,16 @@
 name: Docker Hub description
 on:
   push:
-    branches: [main]
+    branches: ["main"]
     paths:
       - README.md
       - .github/workflows/dockerhub-description.yml
 jobs:
-  docker-hub-description:
-    if: github.repository == 'kbuley/binpot'
+  dockerHubDescription:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
         with:
@@ -23,3 +19,17 @@ jobs:
           repository: kbuley/binpot
           short-description: The statically compiled, cross architecture, Docker based, binaries pot.
           readme-filepath: README.md
+  quayIODescription:
+    name: Push README to Quay.io
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+      - name: Quay.io Description
+        uses: christian-korneck/update-container-description-action@v1
+        env:
+          DOCKER_APIKEY: ${{ secrets.QUAY_API_KEY }}
+        with:
+          destination_container_repo: quay.io/kbuley/binpot
+          provider: quay
+          readme_file: "README.md"
